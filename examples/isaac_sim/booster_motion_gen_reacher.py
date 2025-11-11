@@ -237,19 +237,8 @@ def main():
         trajopt_dt=trajopt_dt,
         trajopt_tsteps=trajopt_tsteps,
         trim_steps=trim_steps,
-        position_threshold=0.02,
-        rotation_threshold=0.50,  # Large threshold to allow relaxed orientation matching
     )
     motion_gen = MotionGen(motion_gen_config)
-    
-    # Compute retract EE position for distance checking
-    retract_state = JointState.from_position(
-        tensor_args.to_device(default_config).unsqueeze(0),
-        joint_names=j_names
-    )
-    retract_state = retract_state.get_ordered_joint_state(motion_gen.kinematics.joint_names)
-    kin_state = motion_gen.compute_kinematics(retract_state)
-    retract_ee_pos = kin_state.ee_pos_seq.cpu().numpy()[0]
     
     if not args.reactive:
         motion_gen.warmup(enable_graph=True, warmup_js_trajopt=False)
@@ -266,7 +255,7 @@ def main():
         time_dilation_factor=0.5 if not args.reactive else 1.0,
         # partial_ik_opt=True,  # Allow partial IK - helps when robot is in difficult configurations
         # num_ik_seeds=None,  # Use default from MotionGenConfig (400 seeds)
-        timeout=15.0,  # Give more time for difficult IK problems
+        # timeout=15.0,  # Give more time for difficult IK problems
     )
 
     usd_help.load_stage(my_world.stage)
@@ -274,7 +263,6 @@ def main():
 
     cmd_plan = None
     cmd_idx = 0
-    idx_list = None  # Initialize idx_list to None, will be set when plan is created
     my_world.scene.add_default_ground_plane()
     i = 0
     spheres = None
@@ -301,34 +289,13 @@ def main():
             articulation_controller = robot.get_articulation_controller()
         if step_index < 10:
             robot._articulation_view.initialize()
-            # Set controlled left arm joints
             idx_list = [robot.get_dof_index(x) for x in j_names]
             robot.set_joint_positions(default_config, idx_list)
 
-            print(f"[INIT] Setting initial joint positions:", file=sys.stderr, flush=True)
-            print(f"  Controlled joints: {j_names}", file=sys.stderr, flush=True)
-            print(f"  Controlled config: {default_config}", file=sys.stderr, flush=True)
-
-            # Set high effort limits for controlled joints
             robot._articulation_view.set_max_efforts(
                 values=np.array([5000 for i in range(len(idx_list))]), joint_indices=idx_list
             )
         if step_index < 20:
-            continue
-        
-        # Hold position for a few more steps to ensure robot is fully settled
-        if step_index < 50:
-            # Hold controlled joints
-            idx_list = [robot.get_dof_index(x) for x in j_names]
-            art_action = ArticulationAction(
-                np.array(default_config),
-                np.zeros(len(default_config)),
-                joint_indices=idx_list,
-            )
-            articulation_controller.apply_action(art_action)
-            
-            if step_index == 49:
-                print(f"[INIT] Initialization complete, robot should be static now", file=sys.stderr, flush=True)
             continue
 
         if step_index == 50 or step_index % 1000 == 0.0:
@@ -436,10 +403,6 @@ def main():
         ):
             ee_translation_goal = cube_position_base_frame
             
-            # Check if target is too far from retract position
-            dist_from_retract = np.linalg.norm(ee_translation_goal - retract_ee_pos)
-            print(f"[DEBUG] Target distance from retract: {dist_from_retract:.3f}m", file=sys.stderr, flush=True)
-            
             # Check start state validity BEFORE planning to get detailed collision info
             valid_start, start_status = motion_gen.check_start_state(cu_js.unsqueeze(0))
             if not valid_start:
@@ -507,32 +470,24 @@ def main():
         
         past_pose = cube_position
         past_orientation = cube_orientation
-        if cmd_plan is not None and idx_list is not None and len(idx_list) > 0:
+        if cmd_plan is not None:
             cmd_state = cmd_plan[cmd_idx]
             past_cmd = cmd_state.clone()
             # get full dof state
-            joint_positions = cmd_state.position.cpu().numpy()
-            joint_velocities = cmd_state.velocity.cpu().numpy()
-            
             art_action = ArticulationAction(
-                joint_positions,
-                joint_velocities,
+                cmd_state.position.cpu().numpy(),
+                cmd_state.velocity.cpu().numpy(),
                 joint_indices=idx_list,
             )
             # set desired joint angles obtained from IK:
             articulation_controller.apply_action(art_action)
             cmd_idx += 1
-            # Step multiple times per command to allow robot to follow
-            for _ in range(5):  # Increased from 2 to 5 to give more time
+            for _ in range(2):
                 my_world.step(render=False)
             if cmd_idx >= len(cmd_plan.position):
-                print(f"[EXEC_DEBUG] Plan execution complete!", file=sys.stderr, flush=True)
                 cmd_idx = 0
                 cmd_plan = None
                 past_cmd = None
-                idx_list = None
-        elif step_index % 500 == 0:
-            print(f"[EXEC_DEBUG] No plan to execute (cmd_plan is None)", file=sys.stderr, flush=True)
     simulation_app.close()
 
 
