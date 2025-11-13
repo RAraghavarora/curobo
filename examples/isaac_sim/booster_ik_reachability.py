@@ -8,6 +8,7 @@
 # without an express license agreement from NVIDIA CORPORATION or
 # its affiliates is strictly prohibited.
 #
+# Modified for Booster T1 Humanoid Robot - spawns robot at correct height
 
 try:
     # Third Party
@@ -37,7 +38,27 @@ parser.add_argument(
     default=False,
 )
 
-parser.add_argument("--robot", type=str, default="franka.yml", help="robot configuration to load")
+parser.add_argument("--robot", type=str, default="booster_t1_left_arm.yml", help="robot configuration to load")
+parser.add_argument(
+    "--external_asset_path",
+    type=str,
+    default=None,
+    help="Path to external assets when loading an externally located robot",
+)
+parser.add_argument(
+    "--external_robot_configs_path",
+    type=str,
+    default=None,
+    help="Path to external robot config when loading an external robot",
+)
+
+parser.add_argument(
+    "--robot_height",
+    type=float,
+    default=0.7,
+    help="Height at which to spawn robot trunk (humanoid standing height, feet on ground at z=-0.02)",
+)
+
 args = parser.parse_args()
 
 ############################################################
@@ -110,7 +131,7 @@ def get_pose_grid(n_x, n_y, n_z, max_x, max_y, max_z):
     return position_arr
 
 
-def draw_points(pose, success):
+def draw_points(pose, success, robot_base_position):
     # Third Party
     try:
         from omni.isaac.debug_draw import _debug_draw
@@ -126,8 +147,9 @@ def draw_points(pose, success):
     point_list = []
     colors = []
     for i in range(b):
-        # get list of points:
-        point_list += [(cpu_pos[i, 0], cpu_pos[i, 1], cpu_pos[i, 2])]
+        # Convert from robot base frame to world frame for visualization
+        world_pos = cpu_pos[i] + robot_base_position
+        point_list += [(world_pos[0], world_pos[1], world_pos[2])]
         if success[i].item():
             colors += [(0, 1, 0, 0.25)]
         else:
@@ -150,9 +172,10 @@ def main():
     # stage.SetDefaultPrim(stage.GetPrimAtPath("/World"))
 
     # Make a target to follow
+    # Target should be in world frame, positioned relative to robot at height
     target = cuboid.VisualCuboid(
         "/World/target",
-        position=np.array([0.5, 0, 0.5]),
+        position=np.array([0.3, 0.3, 0.85]),  # 30cm forward, 30cm left, 0.85m world height
         orientation=np.array([0, 1, 0, 0]),
         color=np.array([1.0, 0, 0]),
         size=0.05,
@@ -168,20 +191,29 @@ def main():
     target_pose = None
 
     tensor_args = TensorDeviceType()
+    robot_cfg_path = get_robot_configs_path()
+    if args.external_robot_configs_path is not None:
+        robot_cfg_path = args.external_robot_configs_path
+    robot_cfg = load_yaml(join_path(robot_cfg_path, args.robot))["robot_cfg"]
 
-    robot_cfg = load_yaml(join_path(get_robot_configs_path(), args.robot))["robot_cfg"]
-
+    if args.external_asset_path is not None:
+        robot_cfg["kinematics"]["external_asset_path"] = args.external_asset_path
+    if args.external_robot_configs_path is not None:
+        robot_cfg["kinematics"]["external_robot_configs_path"] = args.external_robot_configs_path
     j_names = robot_cfg["kinematics"]["cspace"]["joint_names"]
     default_config = robot_cfg["kinematics"]["cspace"]["retract_config"]
 
-    robot, robot_prim_path = add_robot_to_scene(robot_cfg, my_world, position=np.array([0.0, 0.0, 0.7]))
+    # MODIFIED: Spawn robot at specified height (default 0.7 for Booster T1)
+    robot, robot_prim_path = add_robot_to_scene(
+        robot_cfg, my_world, position=np.array([0.0, 0.0, args.robot_height]), load_from_usd=True
+    )
 
     articulation_controller = robot.get_articulation_controller()
 
     world_cfg_table = WorldConfig.from_dict(
         load_yaml(join_path(get_world_configs_path(), "collision_table.yml"))
     )
-    world_cfg_table.cuboid[0].pose[2] -= 0.002
+    world_cfg_table.cuboid[0].pose[2] = -10.5  # Move table way down to not interfere with reachability
     world_cfg1 = WorldConfig.from_dict(
         load_yaml(join_path(get_world_configs_path(), "collision_table.yml"))
     ).get_mesh_world()
@@ -269,6 +301,10 @@ def main():
 
         # position and orientation of target virtual cube:
         cube_position, cube_orientation = target.get_world_pose()
+        
+        # MODIFIED: Transform to robot base frame
+        robot_base_position = np.array([0.0, 0.0, args.robot_height])
+        cube_position_base_frame = cube_position - robot_base_position
 
         if past_pose is None:
             past_pose = cube_position
@@ -287,31 +323,44 @@ def main():
 
         if args.visualize_spheres and step_index % 2 == 0:
             sph_list = ik_solver.kinematics.get_robot_as_spheres(cu_js.position)
+            
+            # Get robot base position in world frame to offset spheres
+            robot_position, _ = robot.get_world_pose()
 
             if spheres is None:
                 spheres = []
                 # create spheres:
 
                 for si, s in enumerate(sph_list[0]):
+                    sphere_world_pos = np.ravel(s.position) + robot_position
                     sp = sphere.VisualSphere(
                         prim_path="/curobo/robot_sphere_" + str(si),
-                        position=np.ravel(s.position),
+                        position=sphere_world_pos,
                         radius=float(s.radius),
                         color=np.array([0, 0.8, 0.2]),
                     )
                     spheres.append(sp)
             else:
                 for si, s in enumerate(sph_list[0]):
-                    spheres[si].set_world_pose(position=np.ravel(s.position))
-                    spheres[si].set_radius(float(s.radius))
-        # print(sim_js.velocities)
+                    if not np.isnan(s.position[0]):
+                        sphere_world_pos = np.ravel(s.position) + robot_position
+                        spheres[si].set_world_pose(position=sphere_world_pos)
+                        spheres[si].set_radius(float(s.radius))
+        
+        # MODIFIED: Check only controlled joint velocities
+        robot_static = False
+        controlled_joint_indices = [robot.dof_names.index(jname) for jname in j_names if jname in robot.dof_names]
+        controlled_joint_velocities = [sim_js.velocities[i] for i in controlled_joint_indices]
+        if np.max(np.abs(controlled_joint_velocities)) < 0.2:
+            robot_static = True
+        
         if (
             np.linalg.norm(cube_position - target_pose) > 1e-3
             and np.linalg.norm(past_pose - cube_position) == 0.0
-            and np.linalg.norm(sim_js.velocities) < 0.2
+            and robot_static
         ):
-            # Set EE teleop goals, use cube for simple non-vr init:
-            ee_translation_goal = cube_position
+            # Set EE teleop goals in robot base frame
+            ee_translation_goal = cube_position_base_frame
             ee_orientation_teleop_goal = cube_orientation
 
             # compute curobo solution:
@@ -331,20 +380,19 @@ def main():
                 + str(result.solve_time)
             )
             # get spheres and flags:
-            draw_points(goal_pose, result.success)
+            draw_points(goal_pose, result.success, robot_base_position)
 
             if succ:
                 # get all solutions:
 
                 cmd_plan = result.js_solution[result.success]
-                # get only joint names that are in both:
+                # MODIFIED: Use controlled joints (j_names) instead of all sim joints
                 idx_list = []
                 common_js_names = []
-                for x in sim_js_names:
+                for x in j_names:
                     if x in cmd_plan.joint_names:
                         idx_list.append(robot.get_dof_index(x))
                         common_js_names.append(x)
-                # idx_list = [robot.get_dof_index(x) for x in sim_js_names]
 
                 cmd_plan = cmd_plan.get_ordered_joint_state(common_js_names)
 
@@ -372,3 +420,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
