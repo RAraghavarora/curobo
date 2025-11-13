@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
-     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
-     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="T1">
+  name="V23RobotAsm">
   <link
     name="Trunk">
     <inertial>
@@ -26,7 +23,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Trunk.STL" />
+          filename="7_dofs_arms_with_jaw/Trunk.STL" />
       </geometry>
       <material
         name="">
@@ -36,10 +33,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0.06 0 0.12"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.15 0.2 0.3" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Trunk.STL" />
       </geometry>
     </collision>
   </link>
@@ -65,7 +63,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/H1.STL" />
+          filename="7_dofs_arms_with_jaw/H1.STL" />
       </geometry>
       <material
         name="">
@@ -73,6 +71,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/H1.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="AAHead_yaw"
@@ -87,10 +94,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-1.57"
-      upper="1.57"
-      effort="7"
-      velocity="12.56" />
+      lower="-1.012"
+      upper="1.012"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="H2">
@@ -114,7 +121,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/H2.STL" />
+          filename="7_dofs_arms_with_jaw/H2.STL" />
       </geometry>
       <material
         name="">
@@ -124,10 +131,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0.01 0 0.11"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <sphere radius="0.08" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/H2.STL" />
       </geometry>
     </collision>
   </link>
@@ -144,10 +152,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-0.35"
-      upper="1.22"
-      effort="7"
-      velocity="12.56" />
+      lower="-0.314"
+      upper="0.82"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AL1">
@@ -171,7 +179,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL1.STL" />
+          filename="7_dofs_arms_with_jaw/AL1.STL" />
       </geometry>
       <material
         name="">
@@ -179,6 +187,15 @@
           rgba="0.76 0.76 0.76 0.2" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL1.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Shoulder_Pitch"
@@ -193,10 +210,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-3.31"
-      upper="1.22"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.28"
+      upper="1.186"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AL2">
@@ -220,7 +237,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL2.STL" />
+          filename="7_dofs_arms_with_jaw/AL2.STL" />
       </geometry>
       <material
         name="">
@@ -228,6 +245,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL2.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Shoulder_Roll"
@@ -242,10 +268,10 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-1.74"
-      upper="1.57"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.64"
+      upper="1.535"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AL3">
@@ -269,7 +295,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL3.STL" />
+          filename="7_dofs_arms_with_jaw/AL3.STL" />
       </geometry>
       <material
         name="">
@@ -279,10 +305,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0.05 0"
-        rpy="1.5708 0 0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.03" length="0.15" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL3.STL" />
       </geometry>
     </collision>
   </link>
@@ -299,12 +326,13 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="50" />
   </joint>
-  <link
+
+<link
     name="AL4">
     <inertial>
       <origin
@@ -320,21 +348,13 @@
         iyz="4E-06"
         izz="0.001608" />
     </inertial>
-    <collision>
-      <origin
-        xyz="0 0.08 0"
-        rpy="1.5708 0 0" />
-      <geometry>
-        <cylinder radius="0.04" length="0.14" />
-      </geometry>
-    </collision>
     <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL4.STL" />
+          filename="7_dofs_arms_with_jaw/AL4.STL" />
       </geometry>
       <material
         name="">
@@ -342,6 +362,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL4.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Elbow_Yaw"
@@ -356,10 +385,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AL5">
@@ -383,7 +412,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL5.STL" />
+          filename="7_dofs_arms_with_jaw/AL5.STL" />
       </geometry>
       <material
         name="">
@@ -391,6 +420,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL5.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Wrist_Pitch"
@@ -405,10 +443,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AL6">
@@ -432,7 +470,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL6.STL" />
+          filename="7_dofs_arms_with_jaw/AL6.STL" />
       </geometry>
       <material
         name="">
@@ -440,6 +478,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL6.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Wrist_Yaw"
@@ -454,10 +501,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="left_hand_link">
@@ -475,21 +522,13 @@
         iyz="0.000214"
         izz="0.001609" />
     </inertial>
-    <collision>
-      <origin
-        xyz="0 0.1 0"
-        rpy="1.5708 0 0" />
-      <geometry>
-        <cylinder radius="0.06" length="0.15" />
-      </geometry>
-    </collision>
     <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AL7.STL" />
+          filename="7_dofs_arms_with_jaw/AL7.STL" />
       </geometry>
       <material
         name="">
@@ -497,6 +536,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AL7.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Hand_Roll"
@@ -511,11 +559,320 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-3.14"
+      upper="3.14"
+      effort="100"
+      velocity="50" />
   </joint>
+
+
+
+
+<link
+    name="left_base_link">
+    <inertial>
+      <origin
+        xyz="0.00339303654278191 -2.1205433560656E-05 -0.0099185365078758"
+        rpy="0 0 0" />
+      <mass
+        value="0.105853592307918" />
+      <inertia
+        ixx="3.93795927851199E-05"
+        ixy="-8.7395226509728E-08"
+        ixz="5.91928672040786E-07"
+        iyy="0.000106376720416166"
+        iyz="-1.82858764303774E-10"
+        izz="0.000125852616063213" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+
+<joint
+    name="left_base_link"
+    type="fixed">
+    <origin
+      xyz="-0.006 0.08 0.01"
+      rpy="0 0 1.5708" />
+    <parent
+      link="left_hand_link" />
+    <child
+      link="left_base_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+
+
+
+
+
+<link
+    name="left_Link1">
+    <inertial>
+      <origin
+        xyz="0.0164149658242926 9.75754915755189E-09 0.00898193900447147"
+        rpy="0 0 0" />
+      <mass
+        value="0.00647716099397792" />
+      <inertia
+        ixx="2.95068972140683E-07"
+        ixy="8.63208170411155E-13"
+        ixz="-1.92008628754607E-09"
+        iyy="1.69979619476872E-06"
+        iyz="-1.99232397395103E-13"
+        izz="1.45016449434989E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_Link1"
+    type="revolute">
+    <origin
+      xyz="0.036 -0.04 -0.019"
+      rpy="-3.0158E-16 -7.1586E-16 -0.30719" />
+    <parent
+      link="left_base_link" />
+    <child
+      link="left_Link1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="left_Link11">
+    <inertial>
+      <origin
+        xyz="0.011366555972498 0.0118642725662323 0.0060000073930068"
+        rpy="0 0 0" />
+      <mass
+        value="0.0127543420299361" />
+      <inertia
+        ixx="5.68538478020233E-07"
+        ixy="-2.68012262729007E-07"
+        ixz="9.34125984931838E-13"
+        iyy="1.45145776457487E-06"
+        iyz="9.34355360561326E-13"
+        izz="1.50564598220449E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_Link11"
+    type="revolute">
+    <origin
+      xyz="0.042 0 0.003"
+      rpy="5.0393E-16 5.6225E-16 0.30719" />
+    <parent
+      link="left_Link1" />
+    <child
+      link="left_Link11" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="0"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="left_Link2">
+    <inertial>
+      <origin
+        xyz="0.0164149658242926 9.75754915755189E-09 0.00898193900447147"
+        rpy="0 0 0" />
+      <mass
+        value="0.00647716099397793" />
+      <inertia
+        ixx="2.95068972140683E-07"
+        ixy="8.63208169650113E-13"
+        ixz="-1.92008628755341E-09"
+        iyy="1.69979619476872E-06"
+        iyz="-1.99232397320157E-13"
+        izz="1.45016449434989E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_Link2"
+    type="revolute">
+    <origin
+      xyz="0.036 0.04 -0.019"
+      rpy="-2.6397E-16 3.7199E-16 0.30719" />
+    <parent
+      link="left_base_link" />
+    <child
+      link="left_Link2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="0"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="left_Link22">
+    <inertial>
+      <origin
+        xyz="-0.011366555972498 0.0118642725662323 -0.0060000073930068"
+        rpy="0 0 0" />
+      <mass
+        value="0.0127543420299362" />
+      <inertia
+        ixx="5.68538478020238E-07"
+        ixy="2.6801226272901E-07"
+        ixz="9.34125986250171E-13"
+        iyy="1.45145776457489E-06"
+        iyz="-9.34355361631596E-13"
+        izz="1.5056459822045E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link22.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_Link22.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_Link22"
+    type="revolute">
+    <origin
+      xyz="0.042 0 0.015"
+      rpy="-3.641E-16 2.4584E-16 2.8344" />
+    <parent
+      link="left_Link2" />
+    <child
+      link="left_Link22" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+
+
+
+
+
+
+
+
   <link
     name="AR1">
     <inertial>
@@ -538,7 +895,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR1.STL" />
+          filename="7_dofs_arms_with_jaw/AR1.STL" />
       </geometry>
       <material
         name="">
@@ -546,6 +903,15 @@
           rgba="0.76 0.76 0.76 0.2" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR1.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Shoulder_Pitch"
@@ -560,16 +926,17 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-3.31"
-      upper="1.22"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AR2">
     <inertial>
       <origin
-        xyz="0.003862 -0.037976 0.000000"
+        
+xyz="0.003862 -0.037976 0.000000"
         rpy="0 0 0" />
       <mass
         value="0.160" />
@@ -587,7 +954,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR2.STL" />
+          filename="7_dofs_arms_with_jaw/AR2.STL" />
       </geometry>
       <material
         name="">
@@ -595,6 +962,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR2.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Shoulder_Roll"
@@ -610,15 +986,15 @@
       xyz="1 0 0" />
     <limit
       lower="-1.57"
-      upper="1.74"
-      effort="18"
-      velocity="18.84" />
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AR3">
     <inertial>
       <origin  
-        xyz="0.000000 -0.085353 -0.000099"
+ xyz="0.000000 -0.085353 -0.000099"
         rpy="0 0 0" />
       <mass
         value="1.02" />
@@ -636,7 +1012,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR3.STL" />
+          filename="7_dofs_arms_with_jaw/AR3.STL" />
       </geometry>
       <material
         name="">
@@ -646,10 +1022,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 -0.05 0"
-        rpy="1.5708 0 0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.03" length="0.15" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR3.STL" />
       </geometry>
     </collision>
   </link>
@@ -666,11 +1043,14 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
+
+
+
   <link
     name="AR4">
     <inertial>
@@ -687,21 +1067,13 @@
         iyz="-5E-06"
         izz="0.002223" />
     </inertial>
-    <collision>
-      <origin
-        xyz="0 -0.08 0"
-        rpy="1.5708 0 0" />
-      <geometry>
-        <cylinder radius="0.04" length="0.14" />
-      </geometry>
-    </collision>
     <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR4.STL" />
+          filename="7_dofs_arms_with_jaw/AR4.STL" />
       </geometry>
       <material
         name="">
@@ -709,6 +1081,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR4.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Elbow_Yaw"
@@ -723,10 +1104,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AR5">
@@ -750,7 +1131,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR5.STL" />
+          filename="7_dofs_arms_with_jaw/AR5.STL" />
       </geometry>
       <material
         name="">
@@ -758,6 +1139,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR5.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Wrist_Pitch"
@@ -772,10 +1162,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="AR6">
@@ -799,7 +1189,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR6.STL" />
+          filename="7_dofs_arms_with_jaw/AR6.STL" />
       </geometry>
       <material
         name="">
@@ -807,6 +1197,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR6.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Wrist_Yaw"
@@ -821,10 +1220,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="right_hand_link">
@@ -842,21 +1241,13 @@
         iyz="-0.000214"
         izz="0.0016" />
     </inertial>
-    <collision>
-      <origin
-        xyz="0 -0.1 0"
-        rpy="1.5708 0 0" />
-      <geometry>
-        <cylinder radius="0.06" length="0.15" />
-      </geometry>
-    </collision>
     <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/AR7.STL" />
+          filename="7_dofs_arms_with_jaw/AR7.STL" />
       </geometry>
       <material
         name="">
@@ -864,6 +1255,15 @@
           rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/AR7.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Hand_Roll"
@@ -878,11 +1278,323 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-2.27"
-      upper="2.27"
-      effort="18"
-      velocity="18.84" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
+
+
+
+
+<link
+    name="right_base_link">
+    <inertial>
+      <origin
+        xyz="0.00339303654278191 -2.1205433560656E-05 -0.0099185365078758"
+        rpy="0 0 0" />
+      <mass
+        value="0.105853592307918" />
+      <inertia
+        ixx="3.93795927851199E-05"
+        ixy="-8.7395226509728E-08"
+        ixz="5.91928672040786E-07"
+        iyy="0.000106376720416166"
+        iyz="-1.82858764303774E-10"
+        izz="0.000125852616063213" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+
+<joint
+    name="right_base_link"
+    type="fixed">
+    <origin
+      xyz="-0.006 -0.084 0.01"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="right_hand_link" />
+    <child
+      link="right_base_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+
+
+
+
+
+<link
+    name="right_Link1">
+    <inertial>
+      <origin
+        xyz="0.0164149658242926 9.75754915755189E-09 0.00898193900447147"
+        rpy="0 0 0" />
+      <mass
+        value="0.00647716099397792" />
+      <inertia
+        ixx="2.95068972140683E-07"
+        ixy="8.63208170411155E-13"
+        ixz="-1.92008628754607E-09"
+        iyy="1.69979619476872E-06"
+        iyz="-1.99232397395103E-13"
+        izz="1.45016449434989E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_Link1"
+    type="revolute">
+    <origin
+      xyz="0.036 -0.04 -0.019"
+      rpy="0 0 -0.30719" />
+    <parent
+      link="right_base_link" />
+    <child
+      link="right_Link1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="right_Link11">
+    <inertial>
+      <origin
+        xyz="0.011366555972498 0.0118642725662323 0.0060000073930068"
+        rpy="0 0 0" />
+      <mass
+        value="0.0127543420299361" />
+      <inertia
+        ixx="5.68538478020233E-07"
+        ixy="-2.68012262729007E-07"
+        ixz="9.34125984931838E-13"
+        iyy="1.45145776457487E-06"
+        iyz="9.34355360561326E-13"
+        izz="1.50564598220449E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link11.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link11.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_Link11"
+    type="revolute">
+    <origin
+      xyz="0.042 0 0.003"
+      rpy="5.0393E-16 5.6225E-16 0.30719" />
+    <parent
+      link="right_Link1" />
+    <child
+      link="right_Link11" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="0"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="right_Link2">
+    <inertial>
+      <origin
+        xyz="0.0164149658242926 9.75754915755189E-09 0.00898193900447147"
+        rpy="0 0 0" />
+      <mass
+        value="0.00647716099397793" />
+      <inertia
+        ixx="2.95068972140683E-07"
+        ixy="8.63208169650113E-13"
+        ixz="-1.92008628755341E-09"
+        iyy="1.69979619476872E-06"
+        iyz="-1.99232397320157E-13"
+        izz="1.45016449434989E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_Link2"
+    type="revolute">
+    <origin
+      xyz="0.036 0.04 -0.019"
+      rpy="-2.6397E-16 3.7199E-16 0.30719" />
+    <parent
+      link="right_base_link" />
+    <child
+      link="right_Link2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="0"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="right_Link22">
+    <inertial>
+      <origin
+        xyz="-0.011366555972498 0.0118642725662323 -0.0060000073930068"
+        rpy="0 0 0" />
+      <mass
+        value="0.0127543420299362" />
+      <inertia
+        ixx="5.68538478020238E-07"
+        ixy="2.6801226272901E-07"
+        ixz="9.34125986250171E-13"
+        iyy="1.45145776457489E-06"
+        iyz="-9.34355361631596E-13"
+        izz="1.5056459822045E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link22.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_Link22.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_Link22"
+    type="revolute">
+    <origin
+      xyz="0.042 0 0.015"
+      rpy="-3.641E-16 2.4584E-16 2.8344" />
+    <parent
+      link="right_Link2" />
+    <child
+      link="right_Link22" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="1"
+      effort="1"
+      velocity="1" />
+  </joint>
+
+
+
+
+
+
+
+
+
+
+
   <link
     name="Waist">
     <inertial>
@@ -905,7 +1617,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Waist.STL" />
+          filename="7_dofs_arms_with_jaw/Waist.STL" />
       </geometry>
       <material
         name="">
@@ -913,6 +1625,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/Waist.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Waist"
@@ -929,8 +1650,8 @@
     <limit
       lower="-1.57"
       upper="1.57"
-      effort="30"
-      velocity="10.88" />
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Hip_Pitch_Left">
@@ -954,7 +1675,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Pitch_Left.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Pitch_Left.STL" />
       </geometry>
       <material
         name="">
@@ -962,6 +1683,15 @@
           rgba="0.76 0.76 0.76 0.2" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Pitch_Left.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Hip_Pitch"
@@ -976,10 +1706,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-1.8"
+      lower="-1.57"
       upper="1.57"
-      effort="45"
-      velocity="12.5" />
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Hip_Roll_Left">
@@ -1003,7 +1733,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Roll_Left.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Roll_Left.STL" />
       </geometry>
       <material
         name="">
@@ -1013,10 +1743,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 -0.08"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.05" length="0.16" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Roll_Left.STL" />
       </geometry>
     </collision>
   </link>
@@ -1033,10 +1764,10 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-0.3"
+      lower="-1.57"
       upper="1.57"
-      effort="30"
-      velocity="10.9" />
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Hip_Yaw_Left">
@@ -1060,7 +1791,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Yaw_Left.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Yaw_Left.STL" />
       </geometry>
       <material
         name="">
@@ -1070,10 +1801,11 @@
     </visual>
     <collision>
       <origin
-        xyz="-0.015 0 -0.135"
-        rpy="1.5707 0 0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.05" length="0.08" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Yaw_Left.STL" />
       </geometry>
     </collision>
   </link>
@@ -1090,10 +1822,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-1"
-      upper="1"
-      effort="30"
-      velocity="10.9" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Shank_Left">
@@ -1117,7 +1849,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Shank_Left.STL" />
+          filename="7_dofs_arms_with_jaw/Shank_Left.STL" />
       </geometry>
       <material
         name="">
@@ -1127,10 +1859,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 -0.13"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.1 0.08 0.1" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Shank_Left.STL" />
       </geometry>
     </collision>
   </link>
@@ -1147,10 +1880,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="2.34"
-      effort="60"
-      velocity="11.7" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Ankle_Cross_Left">
@@ -1174,7 +1907,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Ankle_Cross_Left.STL" />
+          filename="7_dofs_arms_with_jaw/Ankle_Cross_Left.STL" />
       </geometry>
       <material
         name="">
@@ -1182,6 +1915,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/Ankle_Cross_Left.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Left_Ankle_Pitch"
@@ -1196,10 +1938,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-0.87"
-      upper="0.35"
-      effort="12"
-      velocity="18.8" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="left_foot_link">
@@ -1210,7 +1952,7 @@
       <mass
         value="0.685" />
       <inertia
-        ixx="0.002214"
+        ixx="0.000738"
         ixy="0.000000"
         ixz="-0.000147"
         iyy="0.002385"
@@ -1223,7 +1965,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/left_foot_link.STL" />
+          filename="7_dofs_arms_with_jaw/left_foot_link.STL" />
       </geometry>
       <material
         name="">
@@ -1233,10 +1975,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0.01 0 -0.015"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.223 0.1 0.03" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/left_foot_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -1253,11 +1996,12 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-0.44"
-      upper="0.44"
-      effort="12"
-      velocity="12.4" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
+  
   <link
     name="Hip_Pitch_Right">
     <inertial>
@@ -1280,7 +2024,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Pitch_Right.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Pitch_Right.STL" />
       </geometry>
       <material
         name="">
@@ -1288,6 +2032,15 @@
           rgba="0.76 0.76 0.76 0.2" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Pitch_Right.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Hip_Pitch"
@@ -1302,10 +2055,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-1.8"
+      lower="-1.57"
       upper="1.57"
-      effort="45"
-      velocity="12.5" />
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Hip_Roll_Right">
@@ -1329,7 +2082,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Roll_Right.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Roll_Right.STL" />
       </geometry>
       <material
         name="">
@@ -1339,10 +2092,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 -0.08"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.05" length="0.16" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Roll_Right.STL" />
       </geometry>
     </collision>
   </link>
@@ -1360,9 +2114,9 @@
       xyz="1 0 0" />
     <limit
       lower="-1.57"
-      upper="0.3"
-      effort="30"
-      velocity="10.9" />
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Hip_Yaw_Right">
@@ -1386,7 +2140,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Hip_Yaw_Right.STL" />
+          filename="7_dofs_arms_with_jaw/Hip_Yaw_Right.STL" />
       </geometry>
       <material
         name="">
@@ -1396,10 +2150,11 @@
     </visual>
     <collision>
       <origin
-        xyz="-0.015 0 -0.135"
-        rpy="1.5707 0 0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-        <cylinder radius="0.05" length="0.08" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Hip_Yaw_Right.STL" />
       </geometry>
     </collision>
   </link>
@@ -1416,10 +2171,10 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-1"
-      upper="1"
-      effort="30"
-      velocity="10.9" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Shank_Right">
@@ -1443,7 +2198,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Shank_Right.STL" />
+          filename="7_dofs_arms_with_jaw/Shank_Right.STL" />
       </geometry>
       <material
         name="">
@@ -1453,10 +2208,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 -0.13"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.1 0.08 0.1" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/Shank_Right.STL" />
       </geometry>
     </collision>
   </link>
@@ -1473,10 +2229,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="0"
-      upper="2.34"
-      effort="60"
-      velocity="11.7" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="Ankle_Cross_Right">
@@ -1500,7 +2256,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/Ankle_Cross_Right.STL" />
+          filename="7_dofs_arms_with_jaw/Ankle_Cross_Right.STL" />
       </geometry>
       <material
         name="">
@@ -1508,6 +2264,15 @@
           rgba="0.4 0.4 0.4 0.3" />
       </material>
     </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="7_dofs_arms_with_jaw/Ankle_Cross_Right.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint
     name="Right_Ankle_Pitch"
@@ -1522,10 +2287,10 @@
     <axis
       xyz="0 1 0" />
     <limit
-      lower="-0.87"
-      upper="0.35"
-      effort="12"
-      velocity="18.8" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
   <link
     name="right_foot_link">
@@ -1536,7 +2301,7 @@
       <mass
         value="0.685" />
       <inertia
-        ixx="0.002214"
+        ixx="0.000738"
         ixy="0.000000"
         ixz="-0.000147"
         iyy="0.002385"
@@ -1549,7 +2314,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="meshes/right_foot_link.STL" />
+          filename="7_dofs_arms_with_jaw/right_foot_link.STL" />
       </geometry>
       <material
         name="">
@@ -1559,10 +2324,11 @@
     </visual>
     <collision>
       <origin
-        xyz="0.01 0 -0.015"
+        xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.223 0.1 0.03" />
+        <mesh
+          filename="7_dofs_arms_with_jaw/right_foot_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -1579,9 +2345,9 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="-0.44"
-      upper="0.44"
-      effort="12"
-      velocity="12.4" />
+      lower="-1.57"
+      upper="1.57"
+      effort="100"
+      velocity="50" />
   </joint>
 </robot>

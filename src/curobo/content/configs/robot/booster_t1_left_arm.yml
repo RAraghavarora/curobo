@@ -4,14 +4,16 @@
 
 robot_cfg:
   kinematics:
-    use_usd_kinematics: False
-    usd_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/T1_7dof_arms_with_gripper/T1_7dof_arms_with_gripper.usd"
+    use_usd_kinematics: True
+    # usd_path: ""
+    usd_path: "robot/booster/t1_with_7dof_arms.usd"
     usd_robot_root: ""
     isaac_usd_path: ""
     usd_flip_joints: {}
     usd_flip_joint_limits: []
-    urdf_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/T1_7dof_arms_with_gripper.urdf"
-    asset_root_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/"
+    urdf_path: "robot/booster/t1_7dof.urdf"
+    # urdf_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/T1_7dof_arms_with_gripper.urdf"
+    # asset_root_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/"
     
     # Robot structure
     base_link: "Trunk"
