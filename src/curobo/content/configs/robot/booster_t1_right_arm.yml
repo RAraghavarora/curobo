@@ -10,55 +10,186 @@ robot_cfg:
     isaac_usd_path: ""
     usd_flip_joints: {}
     usd_flip_joint_limits: []
-    
-    # urdf_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/T1_7dof_arms_with_gripper.urdf"
-    urdf_path: "/home/robocup/workspaces/raghav_ws/src/curobo/src/curobo/content/assets/robot/booster/t1_7dof.urdf"
-    asset_root_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/"
+    urdf_path: "robot/booster/t1_7dof.urdf"
+
     
     # Robot structure
     base_link: "Trunk"
-    ee_link: "right_hand_link"
+    ee_link: "right_base_link"
     
     link_names: null
-    lock_joints: null  # Only joints in the kinematic chain (Trunk->right_hand_link) can be locked
-    extra_links: null
     
-    collision_link_names: null # List[str]
-    collision_spheres: null #
-    collision_sphere_buffer: 0.005 # float or Dict[str, float]
+    # Lock all joints that are NOT part of the right arm kinematic chain
+    lock_joints:
+      {
+        # Head joints
+        "AAHead_yaw": 0.0,
+        "Head_pitch": 0.0,
+        
+        # Right hand gripper joints (keep closed/neutral)
+        "right_Link1": 0.5,
+        "right_Link11": -0.5,
+        "right_Link2": -0.5,
+        "right_Link22": 0.5,
+        
+        # Left arm joints (keep arm down at side)
+        "Left_Shoulder_Pitch": 0.0,
+        "Left_Shoulder_Roll": 0.0,
+        "Left_Elbow_Pitch": 0.0,
+        "Left_Elbow_Yaw": 0.0,
+        "Left_Wrist_Pitch": 0.0,
+        "Left_Wrist_Yaw": 0.0,
+        "Left_Hand_Roll": 0.0,
+        
+        # Left hand gripper joints
+        "left_Link1": 0.5,
+        "left_Link11": -0.5,
+        "left_Link2": -0.5,
+        "left_Link22": 0.5,
+        
+        # Waist joint
+        "Waist": 0.0,
+        
+        # Left leg joints (standing position)
+        "Left_Hip_Pitch": 0.0,
+        "Left_Hip_Roll": 0.0,
+        "Left_Hip_Yaw": 0.0,
+        "Left_Knee_Pitch": 0.0,
+        "Left_Ankle_Pitch": 0.0,
+        "Left_Ankle_Roll": 0.0,
+        
+        # Right leg joints (standing position)
+        "Right_Hip_Pitch": 0.0,
+        "Right_Hip_Roll": 0.0,
+        "Right_Hip_Yaw": 0.0,
+        "Right_Knee_Pitch": 0.0,
+        "Right_Ankle_Pitch": 0.0,
+        "Right_Ankle_Roll": 0.0,
+      }
+    
+    collision_spheres: spheres/t1.yml
     extra_collision_spheres: {}
-    
-    use_global_cumul: True
+    collision_sphere_buffer: 
+      {
+        "Trunk": -0.04,
+        "default": 0.0,  # No buffer by default
+        "left_hand_link": -0.01,  # Reduce sphere size for left hand
+        "left_base_link": -0.01,  # Reduce sphere size for gripper base
+        "left_Link1": -0.002,  # Reduce sphere size for gripper links
+        "left_Link11": -0.002,
+        "left_Link2": -0.002,
+        "left_Link22": -0.002,
+        "right_hand_link": -0.01,  # Reduce sphere size for hand
+        "right_base_link": -0.01,
+        "right_Link1": -0.002,
+        "right_Link11": -0.002,
+        "right_Link2": -0.002,
+        "right_Link22": -0.002,
+        "AR4": -0.005,  # Reduce sphere size for lower arm links
+        "AR5": -0.005,
+        "AR6": -0.005,
+        "Shank_Left": -0.005,  # Reduce sphere size for leg
+        "Shank_Right": -0.005,
+      }
     
     mesh_link_names: null
     external_asset_path: null
+
+    collision_link_names: ['Trunk', 'H1', 'H2', 'AL1', 'AL2', 'AL3', 'AL4', 'AL5', 'AL6', 'left_hand_link', 'left_base_link', 'left_Link1', 'left_Link11', 'left_Link2', 'left_Link22', 'AR1', 'AR2', 'AR3', 'AR4', 'AR5', 'AR6', 'right_hand_link', 'right_base_link', 'right_Link1', 'right_Link11', 'right_Link2', 'right_Link22', 'Waist', 'Hip_Pitch_Left', 'Hip_Roll_Left', 'Hip_Yaw_Left', 'Shank_Left', 'Ankle_Cross_Left', 'left_foot_link', 'Hip_Pitch_Right', 'Hip_Roll_Right', 'Hip_Yaw_Right','Shank_Right', 'Ankle_Cross_Right', 'right_foot_link']
     
-    
-    # Ignore collisions between adjacent links and trunk-arm connection
     self_collision_ignore:
       {
-        "Trunk": ["AR1", "AR2"],
-        "AR1": ["AR2", "AR3"],
-        "AR2": ["AR3", "AR4"],
-        "AR3": ["AR4", "AR5"],
-        "AR4": ["AR5", "AR6"],
-        "AR5": ["AR6", "right_hand_link"],
-        "AR6": ["right_hand_link", "right_base_link"],
-        "right_hand_link": ["right_base_link"],
+        "Trunk": ["H1", "H2", "Waist", "AL1", "AL2", "AL3", "AR1", "AR2", "AR3"],
+        "H1": ["H2", "AR1", "AR2", "AR3", "AL1", "AL2", "AL3", "Trunk"],
+        "H2": ["AR1", "AR2", "AR3", "AR4", "AL1", "AL2", "AL3", "H1", "Trunk"],
+        "Waist": ["AR1", "AR2", "AR3", "AR4", "AL1", "AL2", "AL3", "AL4", "Hip_Pitch_Left", "Hip_Pitch_Right", "Hip_Roll_Left", "Hip_Roll_Right"],
+        "AR1": ["AR2", "AR3", "AR4", "Trunk"],
+        "AR2": ["AR1", "AR3", "AR4", "AR5", "Waist", "Trunk", "H1", "H2"],
+        "AR3": ["AR2", "AR4"],
+        "AR4": ["AR3", "AR5", "AR6", "right_hand_link"],
+        "AR5": ["AR4", "AR6"],
+        "AR6": ["AR5", "right_hand_link", "right_base_link"],
+        "right_hand_link": ["right_base_link", "AR5", "AR6", "Shank_Right", "right_Link1", "right_Link11", "right_Link2", "right_Link22"],
+        "right_base_link": ["right_Link1", "right_Link11", "right_Link2", "right_Link22", "AR4", "AR5", "AR6", "right_hand_link"],
+        "right_Link1": ["right_Link11", "right_Link2", "right_Link22", "right_base_link", "right_hand_link"],
+        "right_Link11": ["right_Link1", "right_Link2", "right_Link22", "right_base_link", "right_hand_link"],
+        "right_Link2": ["right_Link22", "right_base_link", "right_hand_link"],
+        "right_Link22": ["right_Link2", "right_base_link", "right_hand_link"],
+        # Left arm (locked) - allow right arm to pass near it when reaching across
+        "AL1": ["AL2", "AL3", "AL4", "Trunk"],
+        "AL2": ["AL1","AL3", "AL4", "AL5", "Waist", "Trunk", "H1", "H2"],
+        "AL3": ["AL2", "AL4"],
+        "AL4": ["AL3", "AL5", "AL6"],
+        "AL5": ["AR4", "AL6"],
+        "AL6": ["AL5", "left_hand_link", "left_base_link"],
+        "left_hand_link": ["AL5", "AL6", "left_base_link", "left_Link1", "left_Link11", "left_Link2", "left_Link22"],
+        "left_base_link": ["left_hand_link", "left_Link1", "left_Link11", "left_Link2", "left_Link22", "AL6"],
+        "left_Link1": ["left_Link11", "left_Link2", "left_Link22", "left_base_link", "left_hand_link"],
+        "left_Link11": ["left_Link1", "left_Link2", "left_Link22", "left_base_link", "left_hand_link"],
+        "left_Link2": ["left_Link1", "left_Link22", "left_base_link", "left_hand_link"],
+        "left_Link22": ["left_Link2", "left_base_link"],
+        "Hip_Pitch_Left": ["Hip_Roll_Left", "Hip_Yaw_Left"],
+        "Hip_Roll_Left": ["Hip_Yaw_Left", "Hip_Pitch_Left", "Waist"],
+        "Hip_Yaw_Left": ["Shank_Left", "Hip_Roll_Left", "Hip_Pitch_Left"],
+        "Shank_Left": ["Ankle_Cross_Left", "left_foot_link", "Hip_Yaw_Left"],
+        "Ankle_Cross_Left": ["left_foot_link"],
+        "left_foot_link": ["Shank_Left"],
+        "Hip_Pitch_Right": ["Hip_Roll_Right", "Hip_Yaw_Right"],
+        "Hip_Roll_Right": ["Hip_Yaw_Right", "Hip_Pitch_Right", "Waist"],
+        "Hip_Yaw_Right": ["Shank_Right", "Hip_Roll_Right", "Hip_Pitch_Right", "right_Link1", "right_Link11", "right_Link2", "right_Link22"],
+        "Shank_Right": ["Ankle_Cross_Right", "right_foot_link", "Hip_Yaw_Right", "right_Link1", "right_Link2", "right_Link22"],
+        "Ankle_Cross_Right": ["right_foot_link"],
+        "right_foot_link": ["Shank_Right"]
       }
-    
+
+    # Buffer distances for self-collision checking (0.0 means no extra buffer)
     self_collision_buffer:
       {
-        "Trunk": 0.1,
-        "AR1": 0.05,
-        "AR2": 0.02,
-        "AR3": 0.02,
-        "AR4": 0.02,
-        "AR5": 0.02,
-        "AR6": 0.01,
-        "right_hand_link": 0.01,
-        "right_base_link": 0.01,
+        "Trunk": 0.002,  # Small buffer to prevent numerical precision issues
+        "H1": 0.001,     # Small buffer
+        "H2": 0.001,     # Small buffer
+        "AR1": 0.001,    # Small buffer for numerical stability
+        "AR2": 0.001,
+        "AR3": 0.001,
+        "AR4": 0.001,
+        "AR5": 0.001,
+        "AR6": 0.001,
+        "right_hand_link": 0.001,
+        "right_base_link": 0.001,
+        "right_Link1": 0.001,
+        "right_Link11": 0.001,
+        "right_Link2": 0.001,
+        "right_Link22": 0.001,
+        "AL1": 0.0,
+        "AL2": 0.0,
+        "AL3": 0.0,
+        "AL4": 0.0,
+        "AL5": 0.0,
+        "AL6": 0.0,
+        "left_hand_link": 0.0,
+        "left_base_link": 0.0,
+        "left_Link1": 0.0,
+        "left_Link11": 0.0,
+        "left_Link2": 0.0,
+        "left_Link22": 0.0,
+        "Waist": 0.0,  # Set to 0.0 (was 0.005)
+        "Hip_Pitch_Left": 0.0,
+        "Hip_Roll_Left": 0.0,
+        "Hip_Yaw_Left": 0.0,
+        "Shank_Left": 0.0,
+        "Ankle_Cross_Left": 0.0,
+        "left_foot_link": 0.0,
+        "Hip_Pitch_Right": 0.0,
+        "Hip_Roll_Right": 0.0,
+        "Hip_Yaw_Right": 0.0,
+        "Shank_Right": 0.0,
+        "Ankle_Cross_Right": 0.0,
+        "right_foot_link": 0.0,
       }
+
+    use_global_cumul: True
+    mesh_link_names: null
+    external_asset_path: null
     
     
     
@@ -74,11 +205,7 @@ robot_cfg:
           "Right_Wrist_Yaw",
           "Right_Hand_Roll",
         ]
-      
-      # Safe retract configuration (arms parallel to body from booster.py)
-      retract_config: [0.0, 1.569, 0.0, 0.0, 0.0, 0.0, 0.0]
-      
-      # Weights for null space and distance calculations
+      retract_config: [0.0, 1.2, 0.0, 0.0, 0.0, 0.0, 0.0]  # Reduced shoulder roll from 1.569 to 1.2 to avoid collision
       null_space_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
       cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
       

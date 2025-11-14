@@ -6,20 +6,17 @@ robot_cfg:
   kinematics:
     use_usd_kinematics: False
     usd_path: ""
-    # usd_path: "robot/booster/t1_with_7dof_arms.usd"
     usd_robot_root: ""
     isaac_usd_path: ""
     usd_flip_joints: {}
     usd_flip_joint_limits: []
     urdf_path: "robot/booster/t1_7dof.urdf"
-    # urdf_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/T1_7dof_arms_with_gripper.urdf"
-    # asset_root_path: "/home/robocup/booster_robocup/source/humanoid_assets/data/urdf/t1/"
     
     # Robot structure
     base_link: "Trunk"
     ee_link: "left_base_link"
     
-    link_names: null
+    link_names: ["left_base_link", "right_base_link"]
     
     # Lock all joints that are NOT part of the left arm kinematic chain
     lock_joints:
@@ -33,15 +30,6 @@ robot_cfg:
         "left_Link11": -0.5,
         "left_Link2": -0.5,
         "left_Link22": 0.5,
-        
-        # Right arm joints (keep arm down at side)
-        "Right_Shoulder_Pitch": 0.0,
-        "Right_Shoulder_Roll": 0.0,
-        "Right_Elbow_Pitch": 0.0,
-        "Right_Elbow_Yaw": 0.0,
-        "Right_Wrist_Pitch": 0.0,
-        "Right_Wrist_Yaw": 0.0,
-        "Right_Hand_Roll": 0.0,
         
         # Right hand gripper joints
         "right_Link1": 0.5,
@@ -162,12 +150,12 @@ robot_cfg:
         "left_Link11": 0.001,
         "left_Link2": 0.001,
         "left_Link22": 0.001,
-        "AR1": 0.0,
-        "AR2": 0.0,
-        "AR3": 0.0,
-        "AR4": 0.0,
-        "AR5": 0.0,
-        "AR6": 0.0,
+        "AR1": 0.001,
+        "AR2": 0.001,
+        "AR3": 0.001,
+        "AR4": 0.001,
+        "AR5": 0.001,
+        "AR6": 0.001,
         "right_hand_link": 0.0,
         "right_base_link": 0.0,
         "right_Link1": 0.0,
@@ -205,10 +193,17 @@ robot_cfg:
           "Left_Wrist_Pitch",
           "Left_Wrist_Yaw",
           "Left_Hand_Roll",
+          "Right_Shoulder_Pitch",
+          "Right_Shoulder_Roll",
+          "Right_Elbow_Pitch",
+          "Right_Elbow_Yaw",
+          "Right_Wrist_Pitch",
+          "Right_Wrist_Yaw",
+          "Right_Hand_Roll",
         ]
-      retract_config: [0.0, -1.2, 0.0, 0.0, 0.0, 0.0, 0.0]  # Reduced shoulder roll from -1.569 to -1.2 to avoid collision
-      null_space_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-      cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      retract_config: [0.0, -1.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2, 0.0, 0.0, 0.0, 0.0, 0.0]  # Reduced shoulder roll from -1.569 to -1.2 to avoid collision
+      null_space_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
       
       # Motion limits
       max_acceleration: 15.0
